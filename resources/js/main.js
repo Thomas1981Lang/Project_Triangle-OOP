@@ -1,3 +1,13 @@
+var runden = function( zahl, stellen ) {
+    var gerundet, faktor;
+
+    faktor = Math.pow(10, stellen);
+    gerundet = Math.round( zahl*faktor ) / faktor;
+    return gerundet;
+}
+
+
+
 var Dreieck = function (p1x, p1y, p2x, p2y, p3x, p3y) {
     this.p1x = p1x || 1;
     this.p1y = p1y || 1;
@@ -88,7 +98,7 @@ $(document).ready(function () {
         input.push($('#p2y').val());
         input.push($('#p3x').val());
         input.push($('#p3y').val());
-        dreiecke.push(input);
+        dreiecke.unshift(input);
         input = []
 
 
@@ -100,13 +110,19 @@ $(document).ready(function () {
             var umfangadd = `drei1Umfang${i}`;
             var flaecheadd = `drei1Flaeche${i}`;
 
+            var name = 'dreieck' + i
+            name = new Dreieck(dreiecke[i][0], dreiecke[i][1], dreiecke[i][2], dreiecke[i][3], dreiecke[i][4], dreiecke[i][5]);
 
             var div = $('<div>').html(
                 `
             <div class="wrapper">
             <div class="info">
-            <h1>Basis Dreieck Daten</h1>
-
+            <h1>Dreieck Daten</h1>
+            <div>
+            <p>Punkt 1: (${name.p1x}/${name.p1y})</p>
+            <p>Punkt 2: (${name.p2x}/${name.p2y})</p>
+            <p>Punkt 3: (${name.p3x}/${name.p3y})</p>
+            </div>
             <p>Länge a: <span id="drei1SeiteA${i}"></span></p>
             <p>Länge b: <span id="drei1SeiteB${i}"></span></p>
             <p>Länge c: <span id="drei1SeiteC${i}"></span></p>
@@ -117,18 +133,16 @@ $(document).ready(function () {
             </div>`
             )
             div.appendTo('#ausgabe');
-            var name = 'dreieck' + i
-            name = new Dreieck(dreiecke[i][0], dreiecke[i][1], dreiecke[i][2], dreiecke[i][3], dreiecke[i][4], dreiecke[i][5]);
 
-            $('#' + SeiteA).html(name.lengthp12);
+            $('#' + SeiteA).html(runden(name.lengthp12, 2) + 'px');
 
-            $('#' + SeiteB).html(name.lengthp23);
+            $('#' + SeiteB).html(runden(name.lengthp23, 2) + 'px');
 
-            $('#' + SeiteC).html(name.lengthp31);
+            $('#' + SeiteC).html(runden(name.lengthp31, 2) + 'px');
 
-            $('#' + umfangadd).html(name.umfang);
+            $('#' + umfangadd).html(runden(name.umfang, 2) + 'px');
 
-            $('#' + flaecheadd).html(name.flaeche);
+            $('#' + flaecheadd).html(runden(name.flaeche, 2) + 'px<sup>2</sup>');
 
             $(name.node).appendTo(div.find('.container'));
             name.draw();

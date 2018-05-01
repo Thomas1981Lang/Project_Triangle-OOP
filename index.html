@@ -8,14 +8,52 @@
     <title>OOP-Dreieck</title>
 
     <style>
-        .wrapper {
+        body {
             display: flex;
-            flex-direction: row;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
 
+        form {
+            background-color: lightgrey;
+            padding: 40px
+        }
+
+        label {
+            font-size: 1.4rem;
+            padding-right: 7px;
 
         }
 
+        input {
+            width: 50px;
+            height: 25px;
+            margin-bottom: 20px;
+        }
+
+        .angabex {
+            font-weight: bolder;
+        }
+
+        .angabey {
+            font-weight: bolder;
+            padding-left: 30px;
+        }
+
+        button {
+            font-size: 1.4rem;
+            padding: 5px;
+
+        }
+        .wrapper {
+            display: flex;
+            flex-direction: row;
+        }
+
+
         canvas {
+            padding-top: 80px;
             overflow: visible;
         }
 
@@ -26,32 +64,33 @@
 
         .info {
             padding-right: 20px;
+            width: 420px;
         }
     </style>
 </head>
 <body>
-
+<h1>Dreiecks Koordinaten</h1>
 <form action="">
     <div>
-        <label for="p1x">p1 - x eingeben</label>
-        <input type="number" name="p1x" id="p1x">
+        <label for="p1x"><span class="angabex">p1 - x </span>eingeben:</label>
+        <input type="number" min="0" name="p1x" id="p1x">
 
-        <label for="p1y">p1 - y eingeben</label>
-        <input type="number" name="p1y" id="p1y">
+        <label for="p1y"><span class="angabey">p1 - y </span>eingeben:</label>
+        <input type="number" min="0" name="p1y" id="p1y">
     </div>
     <div>
-        <label for="p2x">p2 - x eingeben</label>
-        <input type="number" name="p2x" id="p2x">
+        <label for="p2x"><span class="angabex">p2 - x </span>eingeben:</label>
+        <input type="number" min="0" name="p2x" id="p2x">
 
-        <label for="p2y">p2 - y eingeben</label>
-        <input type="number" name="p2y" id="p2y">
+        <label for="p2y"><span class="angabey">p2 - y </span>eingeben:</label>
+        <input type="number" min="0" name="p2y" id="p2y">
     </div>
     <div>
-        <label for="p3x">p3 - x eingeben</label>
-        <input type="number" name="p3x" id="p3x">
+        <label for="p3x"><span class="angabex">p3 - x </span>eingeben:</label>
+        <input type="number" min="0" name="p3x" id="p3x">
 
-        <label for="p3y">p3 - y eingeben</label>
-        <input type="number" name="p3y" id="p3y">
+        <label for="p3y"><span class="angabey">p3 - y </span>eingeben:</label>
+        <input type="number" min="0" name="p3y" id="p3y">
     </div>
     <button>Erstellen</button>
 </form>
@@ -59,13 +98,6 @@
 
 <div id="ausgabe"></div>
 
-<!--<h1>Basis Dreieck Daten</h1>-->
-
-<!--<p>Länge a: <span id="drei1SeiteA"></span></p>-->
-<!--<p>Länge b: <span id="drei1SeiteB"></span></p>-->
-<!--<p>Länge c: <span id="drei1SeiteC"></span></p>-->
-<!--<p>Umfang des Dreiecks: <span id="drei1Umfang"></span></p>-->
-<!--<p>Fläche des Dreiecks: <span id="drei1Flaeche"></span></p>-->
 
 
 <script src="resources/js/vendor/jquery-3.2.1.min.js"></script>
