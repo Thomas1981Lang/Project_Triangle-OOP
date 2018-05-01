@@ -1,3 +1,4 @@
+/* -------------- Mathematisch Runden -----------*/
 var runden = function( zahl, stellen ) {
     var gerundet, faktor;
 
@@ -8,6 +9,8 @@ var runden = function( zahl, stellen ) {
 
 
 
+
+/* --------------- Dreieck Objekt -----------------*/
 var Dreieck = function (p1x, p1y, p2x, p2y, p3x, p3y) {
     this.p1x = p1x || 1;
     this.p1y = p1y || 1;
@@ -26,6 +29,9 @@ var Dreieck = function (p1x, p1y, p2x, p2y, p3x, p3y) {
 }
 
 
+
+
+/* --------------- Dreieck Canvas Breite -------------*/
 Dreieck.prototype.canvasSizeX = function () {
     if (this.p1x * 1 > this.p2x * 1 && this.p1x * 1 > this.p3x * 1) {
         this.canvasX = this.p1x;
@@ -43,6 +49,9 @@ Dreieck.prototype.canvasSizeX = function () {
 };
 
 
+
+
+/* --------------- Dreieck Canvas Höhe -------------*/
 Dreieck.prototype.canvasSizeY = function () {
     if (this.p1y * 1 > this.p2y * 1 && this.p1y * 1 > this.p3y * 1) {
         this.canvasY = this.p1y;
@@ -65,6 +74,9 @@ Dreieck.prototype.canvasSizeY = function () {
 };
 
 
+
+
+/* --------------- Dreieck Canvas Erzeugen -------------*/
 Dreieck.prototype.build = function () {
     return $('<canvas>')
         .attr('width', this.canvasSizeX())
@@ -73,6 +85,9 @@ Dreieck.prototype.build = function () {
 }
 
 
+
+
+/* --------------- Dreieck In Canvas Zeichnen -------------*/
 Dreieck.prototype.draw = function () {
     var d = this.ctx;
     d.clearRect(0, 0, this.canvasSizeX(), this.canvasSizeY());
@@ -87,21 +102,28 @@ Dreieck.prototype.draw = function () {
 };
 
 
+
+
 var dreiecke = [];
 var input = [];
 $(document).ready(function () {
     $('button').on('click', function (event) {
         event.preventDefault();
+
+        /* --------------- Koordinaten Punkte In Array Speichern -------------*/
         input.push($('#p1x').val());
         input.push($('#p1y').val());
         input.push($('#p2x').val());
         input.push($('#p2y').val());
         input.push($('#p3x').val());
         input.push($('#p3y').val());
-        dreiecke.unshift(input);
+        dreiecke.unshift(input);       // Array von vorne befüllen
         input = []
 
 
+
+
+        /* --------- Ausgabe der Objekt - Daten -------------*/
         $('#ausgabe').html('');
         for (var i = 0 in dreiecke) {
             var SeiteA = `drei1SeiteA${i}`;
@@ -110,28 +132,29 @@ $(document).ready(function () {
             var umfangadd = `drei1Umfang${i}`;
             var flaecheadd = `drei1Flaeche${i}`;
 
+
             var name = 'dreieck' + i
             name = new Dreieck(dreiecke[i][0], dreiecke[i][1], dreiecke[i][2], dreiecke[i][3], dreiecke[i][4], dreiecke[i][5]);
 
-            var div = $('<div>').html(
-                `
+
+            var div = $('<div>').html(`
             <div class="wrapper">
-            <div class="info">
-            <h1>Dreieck Daten</h1>
-            <div>
-            <p>Punkt 1: (${name.p1x}/${name.p1y})</p>
-            <p>Punkt 2: (${name.p2x}/${name.p2y})</p>
-            <p>Punkt 3: (${name.p3x}/${name.p3y})</p>
-            </div>
-            <p>Länge a: <span id="drei1SeiteA${i}"></span></p>
-            <p>Länge b: <span id="drei1SeiteB${i}"></span></p>
-            <p>Länge c: <span id="drei1SeiteC${i}"></span></p>
-            <p>Umfang des Dreiecks: <span id="drei1Umfang${i}"></span></p>
-            <p>Fläche des Dreiecks: <span id="drei1Flaeche${i}"></span></p>
-            </div>
-            <div class="container"></div>
+                <div class="info">
+                    <h1>Dreieck Daten</h1>
+                    <div>
+                        <p>Punkt 1: (${name.p1x}/${name.p1y})</p>
+                        <p>Punkt 2: (${name.p2x}/${name.p2y})</p>
+                        <p>Punkt 3: (${name.p3x}/${name.p3y})</p>
+                    </div>
+                    <p>Länge a: <span id="drei1SeiteA${i}"></span></p>
+                    <p>Länge b: <span id="drei1SeiteB${i}"></span></p>
+                    <p>Länge c: <span id="drei1SeiteC${i}"></span></p>
+                    <p>Umfang des Dreiecks: <span id="drei1Umfang${i}"></span></p>
+                    <p>Fläche des Dreiecks: <span id="drei1Flaeche${i}"></span></p>
+                </div>
+                <div class="container"></div>
             </div>`
-            )
+            );
             div.appendTo('#ausgabe');
 
             $('#' + SeiteA).html(runden(name.lengthp12, 2) + 'px');
@@ -144,6 +167,10 @@ $(document).ready(function () {
 
             $('#' + flaecheadd).html(runden(name.flaeche, 2) + 'px<sup>2</sup>');
 
+
+
+
+            /* ------------ Zeichnen der Dreiecke -----------------*/
             $(name.node).appendTo(div.find('.container'));
             name.draw();
         }
